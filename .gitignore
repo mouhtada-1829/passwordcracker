@@ -1,0 +1,25 @@
+# Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Projet (docs d'organisation - ne pas push)
+*.pdf
+PasswordCracker-Organisation-Groupe.md
+
+# Logs
+*.log
