@@ -54,10 +54,12 @@ public class BruteForceHashCracker implements HashCracker {
         return null;
     }
 
+    @Override
     public long getAttempts() {
         return attempts;
     }
 
+    @Override
     public long getTotalCombinations() {
         return totalCombinations;
     }
