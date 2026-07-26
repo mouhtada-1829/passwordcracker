@@ -93,12 +93,58 @@ String result = cracker.crack(hash);
 
 ## 6. Résultats obtenus
 
-*[Section à compléter après exécution des tests]*
+### Compilation & exécution
+
+```bash
+mvn clean package -DskipTests
+java -jar target/passwordcracker.jar -m DICO -h <hashMD5>
+java -jar target/passwordcracker.jar -m BRUTE -h <hashMD5>
+```
+
+### Tests unitaires
+
+```bash
+mvn test
+```
+
+Tous les tests passent : validation du hachage MD5, recherche par dictionnaire sur des mots connus, recherche par force brute sur des mots de 1 à 4 caractères.
+
+### Exemples réels (hash MD5 de "test" = `098f6bcd4621d373cade4e832627b4f6`)
+
+```text
+$ java -jar passwordcracker.jar -m DICO -h 098f6bcd4621d373cade4e832627b4f6
+Mot de passe trouve : test
+Tentatives : 6
+Vitesse : 0,2 M hachages/sec
+Temps : 31 ms
+
+$ java -jar passwordcracker.jar -m BRUTE -h 098f6bcd4621d373cade4e832627b4f6
+Progres : [####################] 100%
+Mot de passe trouve : test
+Tentatives : 355414
+Vitesse : 1,4 M hachages/sec
+Temps : 251 ms
+```
+
+On observe l'écart d'efficacité entre les deux stratégies : le dictionnaire trouve le mot en 6 tentatives, la force brute en 355 414. La force brute est exhaustive mais coûteuse ; le dictionnaire est rapide mais limité aux mots qu'il contient.
+
+### Métriques avancées (CLI)
+
+Le programme affiche systématiquement :
+- **Nombre de tentatives** : permet de comparer l'efficacité des stratégies
+- **Temps d'exécution** : mesure la performance brute
+- **Vitesse en M hachages/sec** : indicateur objectif indépendant de la taille de l'espace de recherche
+- **Barre de progression** : visible en mode BRUTE, donne un feedback visuel à l'utilisateur
 
 ## 7. Difficultés rencontrées
 
-*[Section à compléter]*
+- **Génération des combinaisons en force brute** : nous avons choisi une approche itérative (compteur base-26) plutôt que récursive, pour éviter les problèmes de profondeur d'appel et faciliter le suivi de progression.
+- **Affichage de la progression** : le calcul du hash étant synchrone, il a fallu un thread séparé pour interroger le compteur de tentatives pendant l'exécution sans bloquer le cassage.
+- **Respect de l'interface** : le compteur de tentatives a été ajouté via des méthodes `default` dans l'interface `HashCracker` plutôt qu'une classe abstraite, ce qui permet à chaque stratégie d'opter pour son propre suivi.
+- **Validation des entrées** : le hash doit être validé avant le lancement pour éviter des erreurs silencieuses.
 
 ## 8. Conclusion
 
-*[Section à compléter après finalisation du projet]*
+Le projet `PasswordCracker v1` atteint ses objectifs : un outil fonctionnel de cassage de mots de passe MD5, structuré autour du patron **Simple Factory**. L'architecture permet de changer de stratégie (DICO / BRUTE) sans modifier le code client, simplement en passant un paramètre à la fabrique.
+
+La principale limitation est que la fabrique simple viole le principe Open/Closed : l'ajout d'une nouvelle stratégie nécessite de modifier `HashCrackerFactory.create()`. Cette limitation sera résolue dans la version 2 avec un patron Factory Method ou un registre de stratégies.
