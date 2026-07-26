@@ -43,6 +43,8 @@ Le flux de fonctionnement est simple : l'utilisateur lance le programme avec une
 
 ## 4. Diagramme UML
 
+Le diagramme ci-dessous illustre l'architecture du projet basée sur le pattern **Simple Factory**. L'interface `HashCracker` définit le contrat commun, les deux stratégies concrètes (`DictionaryHashCracker` et `BruteForceHashCracker`) l'implémentent, et la classe `HashCrackerFactory` centralise leur création selon le paramètre passé.
+
 ```
 ┌─────────────────────┐
 │   <<interface>>     │
