@@ -149,15 +149,7 @@ Le programme affiche systématiquement :
 - **Respect de l'interface** : le compteur de tentatives a été ajouté via des méthodes `default` dans l'interface `HashCracker` plutôt qu'une classe abstraite, ce qui permet à chaque stratégie d'opter pour son propre suivi.
 - **Validation des entrées** : le hash doit être validé avant le lancement pour éviter des erreurs silencieuses.
 
-## 8. Contributeurs
-
-- **Mouhtada Ndiaye** — Factory, core, coordination
-- **Wahab Diop** — Tests JUnit, dictionnaire, documentation
-- **Ndeye Marame Diop** — CLI, parsing, barre de progression
-- **Aïcha Sy** — Implémentation dictionnaire
-- **Coumba Gueye** — Implémentation force brute
-
-## 9. Conclusion
+## 8. Conclusion
 
 Le projet `PasswordCracker v1` atteint ses objectifs : un outil fonctionnel de cassage de mots de passe MD5, structuré autour du patron **Simple Factory**. L'architecture permet de changer de stratégie (DICO / BRUTE) sans modifier le code client, simplement en passant un paramètre à la fabrique.
 
