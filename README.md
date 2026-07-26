@@ -1,4 +1,4 @@
-# PasswordCracker v1
+# PasswordCracker v1 — Groupe 3
 
 ## 1. Introduction
 
