@@ -17,6 +17,7 @@ public class DictionaryHashCracker implements HashCracker {
     private static final String DEFAULT_DICTIONARY_RESOURCE = "/dictionary.txt";
 
     private final Path dictionaryPath;
+    private int attempts;
 
     public DictionaryHashCracker() {
         this.dictionaryPath = null;
@@ -34,6 +35,8 @@ public class DictionaryHashCracker implements HashCracker {
 
         String targetHash = hash.toLowerCase(Locale.ROOT).trim();
 
+        attempts = 0;
+
         try (BufferedReader reader = openDictionary()) {
             if (reader == null) {
                 return null;
@@ -45,6 +48,7 @@ public class DictionaryHashCracker implements HashCracker {
                 if (word.isEmpty()) {
                     continue;
                 }
+                attempts++;
                 String candidateHash = Md5Util.hash(word);
                 if (candidateHash.equals(targetHash)) {
                     return word;
@@ -55,6 +59,11 @@ public class DictionaryHashCracker implements HashCracker {
         }
 
         return null;
+    }
+
+    @Override
+    public long getAttempts() {
+        return attempts;
     }
 
     private BufferedReader openDictionary() throws IOException {
