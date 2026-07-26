@@ -130,6 +130,10 @@ Temps : 251 ms
 
 On observe l'écart d'efficacité entre les deux stratégies : le dictionnaire trouve le mot en 6 tentatives, la force brute en 355 414. La force brute est exhaustive mais coûteuse ; le dictionnaire est rapide mais limité aux mots qu'il contient.
 
+### Vidéo de démonstration
+
+[Voir la démonstration vidéo](https://drive.google.com/file/d/1p1Tqo8FcgKs5fZAOnup5a8TGK8-OoD4z/view?usp=sharing)
+
 ### Métriques avancées (CLI)
 
 Le programme affiche systématiquement :
